@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class CompletedActivity extends StatelessWidget {
+class ResultActivity extends StatelessWidget {
   final String exercise;
   final int total;
   final int correct;
 
-  CompletedActivity({super.key, required this.exercise, required this.total, required this.correct});
+  ResultActivity({super.key, required this.exercise, required this.total, required this.correct});
 
   @override
   Widget build(BuildContext context) {

@@ -1,34 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:surah_index/v4/completed.dart';
-import 'dart:math';
+import 'package:surah_index/v4/result_activity.dart';
 import 'package:surah_index/v4/surah.dart';
+import 'dart:math';
 
-/// Exercise: Determine the index of a given surah by name,
-class SurahIndex extends StatefulWidget {
-  static const name = "Surah Index";
+/// Exercise: Determine the name of a given surah by: "index",
+class NameExercise extends StatefulWidget {
+  static const name = "Surah Name";
   
-  SurahIndex({super.key});
+  NameExercise({super.key});
 
   @override
-  State<SurahIndex> createState() {
-    return _SurahIndexState();
+  State<NameExercise> createState() {
+    return _NameExerciseState();
   }
 }
 
-class _SurahIndexState extends State<SurahIndex> {
+class _NameExerciseState extends State<NameExercise> {
   int _counter = 1;
   int _correct = 0;
+
   late List<Surah> _surahs;
   late List<int> _options;
   late int _surah;
+
   final List<int> _taken = [];
 
-  _SurahIndexState() {
+  _NameExerciseState() {
     _surahs = Surah.values;
     _surah = _getSurah();
     _options = _getOptions();
   }
-  
+
   int _getSurah() {
     assert(_taken.length <= _surahs.length);
 
@@ -65,7 +67,7 @@ class _SurahIndexState extends State<SurahIndex> {
     return options;
   }
 
-  void _resetFields() {
+  _resetFields() {
     _counter = 1;
     _correct = 0;
     _taken.clear();
@@ -86,8 +88,8 @@ class _SurahIndexState extends State<SurahIndex> {
     ScaffoldMessenger.of(context).clearSnackBars();
 
     if (_counter == _surahs.length) {
-      // Get a copy of the result somehow... because Navigator.push is a Future
-      final activity = CompletedActivity(exercise: SurahIndex.name, total: _taken.length, correct: _correct);
+      // Get a copy of the score somehow... because Navigator.push is a Future
+      final activity = ResultActivity(exercise: NameExercise.name, total: _taken.length, correct: _correct);
 
       Navigator.push(
         context,
@@ -143,7 +145,7 @@ class _SurahIndexState extends State<SurahIndex> {
           borderRadius: BorderRadius.circular(50)
       ),
       child: ListTile(
-        title: Center(child: Text(val.toString(),),),
+        title: Center(child: Text(_surahs[val - 1].name,),),
         textColor: Colors.white,
         onTap: () {
           _eval(val);
@@ -155,64 +157,64 @@ class _SurahIndexState extends State<SurahIndex> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(SurahIndex.name),
-      ),
-      body: WillPopScope(
-        onWillPop: () {
-          // Started?
-          if (_counter > 1) {
-            showDialog<String>(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  // title: const Text('Cancel Exercise'),
-                  content: const Text('Are you sure you want to cancel the exercise?'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text('No'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        _resetFields();
-                        Navigator.pop(context);
-                      },
-                      child: const Text('Yes'),
-                    ),
-                  ],
-                );
-              },
-            );
-          }
-          return Future.value(true);
-        },
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                margin: EdgeInsets.only(bottom: 32),
-                child: Text(
-                  "$_counter. What's the index of Surah ${_surahs[_surah - 1].name}?",
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              ),
-              Column(
-                children: [
-                  _optionTile(_options[0]),
-                  _optionTile(_options[1]),
-                  _optionTile(_options[2]),
-                  _optionTile(_options[3]),
-                ],
-              )
-            ],
-          ),
+        appBar: AppBar(
+          title: Text(NameExercise.name),
         ),
-      ),
+        body: WillPopScope(
+          onWillPop: () {
+            if (_counter > 1) {
+              showDialog<String>(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    // title: const Text('Cancel Exercise'),
+                    content: const Text('Are you sure you want to cancel the exercise?'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('No'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          _resetFields();
+                          ScaffoldMessenger.of(context).clearSnackBars();
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Yes'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            }
+            return Future.value(true);
+          },
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(bottom: 32),
+                  child: Text(
+                    "$_counter. What's the name of surah number $_surah?",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+                Column(
+                  children: [
+                    _optionTile(_options[0]),
+                    _optionTile(_options[1]),
+                    _optionTile(_options[2]),
+                    _optionTile(_options[3]),
+                  ],
+                )
+              ],
+            ),
+          ),
+        )
     );
   }
 }

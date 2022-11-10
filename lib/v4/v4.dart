@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:surah_index/v4/learn.dart';
-import 'package:surah_index/v4/surah_index.dart';
-import 'package:surah_index/v4/surah_name.dart';
+import 'package:surah_index/v4/index_exercise.dart';
+import 'package:surah_index/v4/name_exercise.dart';
+import 'package:surah_index/v4/period_exercise.dart';
+import 'package:surah_index/v4/verse_count_exercise.dart';
 
-// index exercise -> name to number, number to name
-// verse exercise -> 'how many verses has surah yaseen?'
-// period exercise -> 'whats the period of surah baqarah?'
 
 void main() {
   runApp(Application());
@@ -100,13 +99,14 @@ class Homepage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             getExerciseTile(context, "Surah Index", "In this exercise, "
-                "you'll determine the index of a given surah.", SurahIndex()),
+                "you'll determine the index of a given surah.", IndexExercise()),
             getExerciseTile(context, "Surah Name", "In this exercise, "
-                "you'll determine the name of a given surah.", SurahName()),
+                "you'll determine the name of a given surah.", NameExercise()),
             getExerciseTile(context, "Surah Period", "In this exercise, "
-                "you'll determine the period of revelation [\"Makki\", or \"Madani\"] of a given surah.", SurahIndex()),
+                "you'll determine the period of revelation [\"Makki\", or \"Madani\"] "
+                "of a given surah.", PeriodExercise()),
             getExerciseTile(context, "Verse Count", "In this exercise, "
-                "you'll determine the number of verses of a given surah.", SurahIndex()),
+                "you'll determine the number of verses of a given surah.", VerseCountExercise()),
           ],
         ),
       ),
