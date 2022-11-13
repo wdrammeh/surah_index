@@ -1,16 +1,35 @@
-# surah_index
+# Surah Index
 
-A new Flutter project.
+An exercise to test your familiarity with the chapters in the Quran ("surahs").
 
-## Getting Started
+![](docs/img/surah_index_learn.png)
 
-This project is a starting point for a Flutter application.
+Throughout this exercise, a randomly generated surah will be provided. You're to determine its name, index, period of revelation, or number verses based on the chosen category.
 
-A few resources to get you started if this is your first Flutter project:
+**The exercise is divided into 4 categories**:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+![](docs/img/surah_index_home.png)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 1. Surah Index
+
+In this exercise, you'll determine the index of a given surah.
+
+![](docs/img/surah_index_index.png)
+
+## 2. Surah Name
+
+In this exercise, you'll determine the name of a given surah.
+
+![](docs/img/surah_index_name.png)
+
+## 3. Surah Period
+
+In this exercise, you'll determine the period of revelation ["Makki", or "Madani"] of a given surah.
+
+![](docs/img/surah_index_period.png)
+
+## 4. Verse Count
+
+In this exercise, you'll determine the number of verses of a given surah.
+
+![](docs/img/surah_index_verses.png)
