@@ -1,7 +1,6 @@
-import 'package:surah_index/v4/surah.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:surah_index/v4/v4.dart';
 
 void main() {
-  final alFatiha = Surah.Fatiha;
-  print(alFatiha);
-  // print(alFatiha.to);
+  runApp(Application());
 }

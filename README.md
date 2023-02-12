@@ -4,7 +4,7 @@ An exercise to test your familiarity with the chapters in the Quran ("surahs").
 
 ![](docs/img/surah_index_learn.png)
 
-Throughout this exercise, a randomly generated surah will be provided. You're to determine its name, index, period of revelation, or number verses based on the chosen category.
+Throughout this exercise, a randomly generated surah will be provided. You're to determine its name, index, period of revelation, or number of verses based on the chosen category.
 
 **The exercise is divided into 4 categories**:
 

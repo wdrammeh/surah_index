@@ -137,7 +137,7 @@ class _PeriodExerciseState extends State<PeriodExercise> {
 
   Widget _optionTile(String period) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 32, vertical: 4),
+      margin: EdgeInsets.symmetric(vertical: 4, ),
       decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(50)
@@ -191,24 +191,27 @@ class _PeriodExerciseState extends State<PeriodExercise> {
           }
           return Future.value(true);
         },
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                margin: EdgeInsets.only(bottom: 32),
-                child: Text(
-                  "$_counter. What's the period of Surah ${_surahs[_surah - 1].name}?",
-                  style: Theme.of(context).textTheme.titleMedium,
+        child: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(bottom: 32),
+                  child: Text(
+                    "$_counter. What's the period of Surah ${_surahs[_surah - 1].name}?",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
                 ),
-              ),
-              Column(
-                children: [
-                  _optionTile(Period.Makki.name),
-                  _optionTile(Period.Madani.name),
-                ],
-              )
-            ],
+                Column(
+                  children: [
+                    _optionTile(Period.Makki.name),
+                    _optionTile(Period.Madani.name),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
