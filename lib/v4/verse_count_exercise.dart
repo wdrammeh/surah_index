@@ -28,7 +28,7 @@ class _VerseCountExerciseState extends State<VerseCountExercise> {
     _surah = _getSurah();
     _options = _getOptions();
   }
-  
+
   int _getSurah() {
     assert(_taken.length <= _surahs.length);
 
@@ -51,7 +51,7 @@ class _VerseCountExerciseState extends State<VerseCountExercise> {
     //   options = [_surahs[_surah - 2].verses, _surahs[_surah - 1].verses,
     //     _surahs[_surah].verses, _surahs[_surah + 1].verses];
     // }
-    
+
     final verses = _surahs[_surah - 1].verses;
 
     var option2 = Random().nextInt(284) + 3;
@@ -97,7 +97,10 @@ class _VerseCountExerciseState extends State<VerseCountExercise> {
 
     if (_counter == _surahs.length) {
       // Get a copy of the result somehow... because Navigator.push is a Future
-      final activity = ResultActivity(exercise: VerseCountExercise.name, total: _taken.length, correct: _correct);
+      final activity = ResultActivity(
+          exercise: VerseCountExercise.name,
+          total: _taken.length,
+          correct: _correct);
 
       Navigator.push(
         context,
@@ -130,7 +133,7 @@ class _VerseCountExerciseState extends State<VerseCountExercise> {
         ),
         action: SnackBarAction(
           textColor: Theme.of(context).colorScheme.surface,
-          label: 'Close',
+          label: 'Ok',
           onPressed: () {},
         ),
       );
@@ -147,13 +150,18 @@ class _VerseCountExerciseState extends State<VerseCountExercise> {
 
   Widget _optionTile(int verses) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 4, ),
+      margin: EdgeInsets.symmetric(
+        vertical: 4,
+      ),
       decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(50)
-      ),
+          borderRadius: BorderRadius.circular(50)),
       child: ListTile(
-        title: Center(child: Text(verses.toString(),),),
+        title: Center(
+          child: Text(
+            verses.toString(),
+          ),
+        ),
         textColor: Colors.white,
         onTap: () {
           _eval(verses);
@@ -169,64 +177,64 @@ class _VerseCountExerciseState extends State<VerseCountExercise> {
         title: Text(VerseCountExercise.name),
       ),
       body: WillPopScope(
-        onWillPop: () {
-          // Started?
-          if (_counter > 1) {
-            showDialog<String>(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  // title: const Text('Cancel Exercise'),
-                  content: const Text('Are you sure you want to cancel the exercise?'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text('No'),
+          onWillPop: () {
+            // Started?
+            if (_counter > 1) {
+              showDialog<String>(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    // title: const Text('Cancel Exercise'),
+                    content: const Text(
+                        'Are you sure you want to cancel the exercise?'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('No'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          _resetFields();
+                          ScaffoldMessenger.of(context).clearSnackBars();
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Yes'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            }
+            return Future.value(true);
+          },
+          child: Center(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 32),
+                    child: Text(
+                      "$_counter. How many verses has Surah ${_surahs[_surah - 1].name}?",
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        _resetFields();
-                        ScaffoldMessenger.of(context).clearSnackBars();
-                        Navigator.pop(context);
-                      },
-                      child: const Text('Yes'),
-                    ),
-                  ],
-                );
-              },
-            );
-          }
-          return Future.value(true);
-        },
-        child: SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: 32),
-                  child: Text(
-                    "$_counter. How many verses has Surah ${_surahs[_surah - 1].name}?",
-                    style: Theme.of(context).textTheme.titleMedium,
                   ),
-                ),
-                Column(
-                  children: [
-                    _optionTile(_options[0]),
-                    _optionTile(_options[1]),
-                    _optionTile(_options[2]),
-                    _optionTile(_options[3]),
-                  ],
-                )
-              ],
+                  Column(
+                    children: [
+                      _optionTile(_options[0]),
+                      _optionTile(_options[1]),
+                      _optionTile(_options[2]),
+                      _optionTile(_options[3]),
+                    ],
+                  )
+                ],
+              ),
             ),
-          ),
-        ),
-      ),
+          )),
     );
   }
 }

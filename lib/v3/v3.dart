@@ -2,10 +2,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(Application());
+  runApp(const Application());
 }
 
-final appName = "Surah Index Exercise";
+const appName = "Surah Index Exercise";
+
 final Map<int, String> _index = {
   1: "Fatiha",
   2: "Baqarah",
@@ -124,11 +125,12 @@ final Map<int, String> _index = {
 };
 
 class Application extends StatelessWidget {
-  Application({super.key});
+
+  const Application({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: appName,
       debugShowCheckedModeBanner: false,
       home: Homepage(),
@@ -137,23 +139,24 @@ class Application extends StatelessWidget {
 }
 
 class Homepage extends StatelessWidget {
-  Homepage({super.key});
+
+  const Homepage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(appName),
+        title: const Text(appName),
         actions: [
           IconButton(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            icon: Icon(Icons.info_outlined),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            icon: const Icon(Icons.my_library_books),
             tooltip: 'Learn',
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  return LearnActivity();
+                  return const LearnActivity();
                 }),
               );
             },
@@ -170,14 +173,14 @@ class Homepage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return NameToNumber();
+                        return const NameToNumber();
                       },
                     )
                 );
               },
-              child: Text("Name to number"),
+              child: const Text("Name to number"),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             ElevatedButton(
@@ -186,24 +189,24 @@ class Homepage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return NumberToName();
+                      return const NumberToName();
                     },
                   )
                 );
               },
-              child: Text("Number to name"),
+              child: const Text("Number to name"),
             )
           ],
         ),
       ),
       bottomNavigationBar: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextButton(
                 onPressed: () {},
-                child: Text("Muhammed W Drammeh"),
+                child: const Text("Muhammed W. Drammeh"),
               ),
             ],
           )),
@@ -212,7 +215,8 @@ class Homepage extends StatelessWidget {
 }
 
 class NameToNumber extends StatefulWidget {
-  NameToNumber({super.key});
+
+  const NameToNumber({super.key});
 
   @override
   State<NameToNumber> createState() {
@@ -304,7 +308,7 @@ class _NameToNumberState extends State<NameToNumber> {
         content: Row(
           children: [
             Container(
-              padding: EdgeInsets.only(right: 8),
+              padding: const EdgeInsets.only(right: 8),
               child: Icon(
                 correct ? Icons.check : Icons.cancel_outlined,
                 color: Colors.white,
@@ -312,7 +316,7 @@ class _NameToNumberState extends State<NameToNumber> {
             ),
             Text(
               answer,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
           ],
         ),
@@ -335,17 +339,17 @@ class _NameToNumberState extends State<NameToNumber> {
 
   Widget _optionTile(val) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 64, vertical: 4),
+      margin: const EdgeInsets.symmetric(horizontal: 64, vertical: 4),
+      decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          borderRadius: BorderRadius.circular(50)
+      ),
       child: ListTile(
         title: Center(child: Text(val.toString(),),),
         textColor: Colors.white,
         onTap: () {
           _eval(val);
         },
-      ),
-      decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(50)
       ),
     );
   }
@@ -356,7 +360,7 @@ class _NameToNumberState extends State<NameToNumber> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(appName),
+        title: const Text(appName),
       ),
       body: WillPopScope(
         onWillPop: () {
@@ -395,7 +399,7 @@ class _NameToNumberState extends State<NameToNumber> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: EdgeInsets.only(bottom: 32),
+                margin: const EdgeInsets.only(bottom: 32),
                 child: Text(
                   "$_counter. What's the index of Surah ${_index[_surah]}?",
                   style: Theme.of(context).textTheme.titleMedium,
@@ -418,7 +422,7 @@ class _NameToNumberState extends State<NameToNumber> {
 }
 
 class NumberToName extends StatefulWidget {
-  NumberToName({super.key});
+  const NumberToName({super.key});
   
   @override
     State<NumberToName> createState() {
@@ -510,7 +514,7 @@ class _NumberToNameState extends State<NumberToName> {
         content: Row(
           children: [
             Container(
-              padding: EdgeInsets.only(right: 8),
+              padding: const EdgeInsets.only(right: 8),
               child: Icon(
                 correct ? Icons.check : Icons.cancel_outlined,
                 color: Colors.white,
@@ -518,7 +522,7 @@ class _NumberToNameState extends State<NumberToName> {
             ),
             Text(
               answer,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
           ],
         ),
@@ -541,17 +545,17 @@ class _NumberToNameState extends State<NumberToName> {
   
   Widget _optionTile(val) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 64, vertical: 4),
+      margin: const EdgeInsets.symmetric(horizontal: 64, vertical: 4),
+      decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          borderRadius: BorderRadius.circular(50)
+      ),
       child: ListTile(
         title: Center(child: Text(_index[val]!,),),
         textColor: Colors.white,
         onTap: () {
           _eval(val);
         },
-      ),
-      decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(50)
       ),
     );
   }
@@ -562,7 +566,7 @@ class _NumberToNameState extends State<NumberToName> {
     
     return Scaffold(
       appBar: AppBar(
-        title: Text(appName),
+        title: const Text(appName),
       ),
       body: WillPopScope(
         onWillPop: () {
@@ -600,7 +604,7 @@ class _NumberToNameState extends State<NumberToName> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: EdgeInsets.only(bottom: 32),
+                margin: const EdgeInsets.only(bottom: 32),
                 child: Text(
                   "$_counter. What's the name of surah number $_surah?",
                   style: Theme.of(context).textTheme.titleMedium,
@@ -625,13 +629,13 @@ class _NumberToNameState extends State<NumberToName> {
 class CompletedActivity extends StatelessWidget {
   final int _mark;
 
-  CompletedActivity(this._mark, {super.key});
+  const CompletedActivity(this._mark, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           appName,
         ),
       ),
@@ -643,20 +647,20 @@ class CompletedActivity extends StatelessWidget {
               "Quiz completed",
               style: Theme.of(context).textTheme.headline4,
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Text(
-              "Your score: ${_mark}/${_index.length}",
+              "Your score: $_mark/${_index.length}",
               style: Theme.of(context).textTheme.titleMedium,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 64),
+              padding: const EdgeInsets.symmetric(vertical: 64),
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text("Play again"),
+                child: const Text("Play again"),
               ),
             ),
           ],
@@ -667,13 +671,14 @@ class CompletedActivity extends StatelessWidget {
 }
 
 class LearnActivity extends StatelessWidget {
-  LearnActivity({super.key});
+
+  const LearnActivity({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Surah Index"),
+          title: const Text("Surah Index"),
         ),
         body: ListView.builder(
           itemCount: _index.length,

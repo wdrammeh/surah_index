@@ -125,6 +125,7 @@ enum Surah {
   String toString() {
     return "$position - $name - $verses verses - $period";
   }
+
 }
 
 enum Period {
@@ -139,4 +140,5 @@ enum Period {
   String toString() {
     return name;
   }
+
 }

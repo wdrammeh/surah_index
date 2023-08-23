@@ -5,14 +5,18 @@ import 'package:surah_index/v4/name_exercise.dart';
 import 'package:surah_index/v4/period_exercise.dart';
 import 'package:surah_index/v4/verse_count_exercise.dart';
 
+void main() {
+  runApp(const Application());
+}
+
 class Application extends StatelessWidget {
   static const name = "Surah Quiz";
 
-  Application({super.key});
+  const Application({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: name,
       home: Homepage(),
       debugShowCheckedModeBanner: false,
@@ -22,11 +26,11 @@ class Application extends StatelessWidget {
 
 class Homepage extends StatelessWidget {
 
-  Homepage({super.key});
+  const Homepage({super.key});
 
-  Widget getExerciseTile(BuildContext context, String title, String about, Widget activity) {
+  Widget newExerciseTile(BuildContext context, String title, String about, Widget activity) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 8/2,),
+      margin: const EdgeInsets.symmetric(vertical: 8/2),
       decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(50),
@@ -45,22 +49,24 @@ class Homepage extends StatelessWidget {
                 content: Text(about),
                 actions: [
                   TextButton(
-                    onPressed: () { Navigator.pop(context); },
-                    child: Text("Ok"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("Ok"),
                   ),
                 ],
               );
-            },);
+            });
           },
-          child: Icon(
-            Icons.info,
+          child: const Icon(
+            Icons.question_mark,
             color: Colors.white,
           ),
         ),
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return activity;
-          },));
+          }));
         },
       ),
     );
@@ -70,11 +76,11 @@ class Homepage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Select Exercise"),
+        title: const Text("Select Exercise"),
         actions: [
           IconButton(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            icon: Icon(Icons.menu_book),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            icon: const Icon(Icons.library_books),
             tooltip: 'Learn',
             onPressed: () {
               Navigator.push(
@@ -87,20 +93,20 @@ class Homepage extends StatelessWidget {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.all(16),
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              getExerciseTile(context, "Surah Index", "In this exercise, "
+              newExerciseTile(context, "Surah Index", "In this exercise, "
                   "you'll determine the index of a given surah.", IndexExercise()),
-              getExerciseTile(context, "Surah Name", "In this exercise, "
+              newExerciseTile(context, "Surah Name", "In this exercise, "
                   "you'll determine the name of a given surah.", NameExercise()),
-              getExerciseTile(context, "Surah Period", "In this exercise, "
+              newExerciseTile(context, "Surah Period", "In this exercise, "
                   "you'll determine the period of revelation [\"Makki\", or \"Madani\"] "
                   "of a given surah.", PeriodExercise()),
-              getExerciseTile(context, "Verse Count", "In this exercise, "
+              newExerciseTile(context, "Verse Count", "In this exercise, "
                   "you'll determine the number of verses of a given surah.", VerseCountExercise()),
             ],
           ),
@@ -111,7 +117,7 @@ class Homepage extends StatelessWidget {
         children: [
            TextButton(
             onPressed: () {},
-            child: Text("<wakadrammeh@gmail.com>"),
+            child: const Text("Muhammed W. Drammeh"),
           ),
         ],
       ),

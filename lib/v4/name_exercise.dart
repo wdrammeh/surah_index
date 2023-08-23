@@ -5,8 +5,8 @@ import 'dart:math';
 
 /// Exercise: Determine the name of a given surah by: "index",
 class NameExercise extends StatefulWidget {
-  static const name = "Surah Name";
-  
+  static const name = "Surah Name Quiz";
+
   NameExercise({super.key});
 
   @override
@@ -63,7 +63,7 @@ class _NameExerciseState extends State<NameExercise> {
 
     final options = [_surah, option2, option3, option4];
     options.shuffle();
-    
+
     return options;
   }
 
@@ -89,7 +89,8 @@ class _NameExerciseState extends State<NameExercise> {
 
     if (_counter == _surahs.length) {
       // Get a copy of the score somehow... because Navigator.push is a Future
-      final activity = ResultActivity(exercise: NameExercise.name, total: _taken.length, correct: _correct);
+      final activity = ResultActivity(
+          exercise: NameExercise.name, total: _taken.length, correct: _correct);
 
       Navigator.push(
         context,
@@ -122,7 +123,7 @@ class _NameExerciseState extends State<NameExercise> {
         ),
         action: SnackBarAction(
           textColor: Theme.of(context).colorScheme.surface,
-          label: 'Close',
+          label: 'Ok',
           onPressed: () {},
         ),
       );
@@ -139,13 +140,18 @@ class _NameExerciseState extends State<NameExercise> {
 
   Widget _optionTile(val) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 4, ),
+      margin: EdgeInsets.symmetric(
+        vertical: 4,
+      ),
       decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(50)
-      ),
+          borderRadius: BorderRadius.circular(50)),
       child: ListTile(
-        title: Center(child: Text(_surahs[val - 1].name,),),
+        title: Center(
+          child: Text(
+            _surahs[val - 1].name,
+          ),
+        ),
         textColor: Colors.white,
         onTap: () {
           _eval(val);
@@ -161,63 +167,62 @@ class _NameExerciseState extends State<NameExercise> {
           title: Text(NameExercise.name),
         ),
         body: WillPopScope(
-          onWillPop: () {
-            if (_counter > 1) {
-              showDialog<String>(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    // title: const Text('Cancel Exercise'),
-                    content: const Text('Are you sure you want to cancel the exercise?'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text('No'),
+            onWillPop: () {
+              if (_counter > 1) {
+                showDialog<String>(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      // title: const Text('Cancel Exercise'),
+                      content: const Text(
+                          'Are you sure you want to cancel the exercise?'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('No'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            _resetFields();
+                            ScaffoldMessenger.of(context).clearSnackBars();
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Yes'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }
+              return Future.value(true);
+            },
+            child: Center(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(bottom: 32),
+                      child: Text(
+                        "$_counter. What's the name of surah number $_surah?",
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                          _resetFields();
-                          ScaffoldMessenger.of(context).clearSnackBars();
-                          Navigator.pop(context);
-                        },
-                        child: const Text('Yes'),
-                      ),
-                    ],
-                  );
-                },
-              );
-            }
-            return Future.value(true);
-          },
-          child: SingleChildScrollView(
-            child: Container(
-              padding: EdgeInsets.all(16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(bottom: 32),
-                    child: Text(
-                      "$_counter. What's the name of surah number $_surah?",
-                      style: Theme.of(context).textTheme.titleMedium,
                     ),
-                  ),
-                  Column(
-                    children: [
-                      _optionTile(_options[0]),
-                      _optionTile(_options[1]),
-                      _optionTile(_options[2]),
-                      _optionTile(_options[3]),
-                    ],
-                  )
-                ],
+                    Column(
+                      children: [
+                        _optionTile(_options[0]),
+                        _optionTile(_options[1]),
+                        _optionTile(_options[2]),
+                        _optionTile(_options[3]),
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-          ),
-        )
-    );
+            )));
   }
 }

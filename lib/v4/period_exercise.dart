@@ -5,7 +5,7 @@ import 'package:surah_index/v4/surah.dart';
 
 /// Exercise: Determine the period of a given surah by: "name",
 class PeriodExercise extends StatefulWidget {
-  static const name = "Surah Period";
+  static const name = "Surah Period Quiz";
 
   PeriodExercise({super.key});
 
@@ -19,6 +19,7 @@ class _PeriodExerciseState extends State<PeriodExercise> {
   int _counter = 1;
   int _correct = 0;
   late List<Surah> _surahs;
+
   // late List<int> _options;
   late int _surah;
   final List<int> _taken = [];
@@ -28,7 +29,7 @@ class _PeriodExerciseState extends State<PeriodExercise> {
     _surah = _getSurah();
     // _options = _getOptions();
   }
-  
+
   int _getSurah() {
     assert(_taken.length <= _surahs.length);
 
@@ -61,7 +62,7 @@ class _PeriodExerciseState extends State<PeriodExercise> {
   //
   //   final options = [_surah, option2, option3, option4];
   //   options.shuffle();
-  //  
+  //
   //   return options;
   // }
 
@@ -87,7 +88,10 @@ class _PeriodExerciseState extends State<PeriodExercise> {
 
     if (_counter == _surahs.length) {
       // Get a copy of the result somehow... because Navigator.push is a Future
-      final activity = ResultActivity(exercise: PeriodExercise.name, total: _taken.length, correct: _correct);
+      final activity = ResultActivity(
+          exercise: PeriodExercise.name,
+          total: _taken.length,
+          correct: _correct);
 
       Navigator.push(
         context,
@@ -120,7 +124,7 @@ class _PeriodExerciseState extends State<PeriodExercise> {
         ),
         action: SnackBarAction(
           textColor: Theme.of(context).colorScheme.surface,
-          label: 'Close',
+          label: 'Ok',
           onPressed: () {},
         ),
       );
@@ -137,13 +141,18 @@ class _PeriodExerciseState extends State<PeriodExercise> {
 
   Widget _optionTile(String period) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 4, ),
+      margin: EdgeInsets.symmetric(
+        vertical: 4,
+      ),
       decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(50)
-      ),
+          borderRadius: BorderRadius.circular(50)),
       child: ListTile(
-        title: Center(child: Text(period,),),
+        title: Center(
+          child: Text(
+            period,
+          ),
+        ),
         textColor: Colors.white,
         onTap: () {
           _eval(period);
@@ -159,62 +168,62 @@ class _PeriodExerciseState extends State<PeriodExercise> {
         title: Text(PeriodExercise.name),
       ),
       body: WillPopScope(
-        onWillPop: () {
-          // Started?
-          if (_counter > 1) {
-            showDialog<String>(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  // title: const Text('Cancel Exercise'),
-                  content: const Text('Are you sure you want to cancel the exercise?'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text('No'),
+          onWillPop: () {
+            // Started?
+            if (_counter > 1) {
+              showDialog<String>(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    // title: const Text('Cancel Exercise'),
+                    content: const Text(
+                        'Are you sure you want to cancel the exercise?'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('No'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          _resetFields();
+                          ScaffoldMessenger.of(context).clearSnackBars();
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Yes'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            }
+            return Future.value(true);
+          },
+          child: Center(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 32),
+                    child: Text(
+                      "$_counter. What's the period of Surah ${_surahs[_surah - 1].name}?",
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        _resetFields();
-                        ScaffoldMessenger.of(context).clearSnackBars();
-                        Navigator.pop(context);
-                      },
-                      child: const Text('Yes'),
-                    ),
-                  ],
-                );
-              },
-            );
-          }
-          return Future.value(true);
-        },
-        child: SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: 32),
-                  child: Text(
-                    "$_counter. What's the period of Surah ${_surahs[_surah - 1].name}?",
-                    style: Theme.of(context).textTheme.titleMedium,
                   ),
-                ),
-                Column(
-                  children: [
-                    _optionTile(Period.Makki.name),
-                    _optionTile(Period.Madani.name),
-                  ],
-                )
-              ],
+                  Column(
+                    children: [
+                      _optionTile(Period.Makki.name),
+                      _optionTile(Period.Madani.name),
+                    ],
+                  )
+                ],
+              ),
             ),
-          ),
-        ),
-      ),
+          )),
     );
   }
 }

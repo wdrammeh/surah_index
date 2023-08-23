@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:surah_index/v4/v4.dart';
 
 class ResultActivity extends StatelessWidget {
   final String exercise;
   final int total;
   final int correct;
 
-  ResultActivity({super.key, required this.exercise, required this.total, required this.correct});
+  const ResultActivity({super.key, required this.exercise, required this.total, required this.correct});
+
+  int getPercent() {
+    return ((correct / total) * 100).toInt();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,30 +27,51 @@ class ResultActivity extends StatelessWidget {
           children: [
             Text(
               "Quiz completed",
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
-            SizedBox(
+            const SizedBox(
               height: 8/4,
             ),
             Text(
               "Your score: ${correct}/${total}",
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 // fontWeight: FontWeight.bold,
               )
             ),
+            Text(
+                "${getPercent()}%",
+                style: Theme.of(context).textTheme.headlineMedium,
+            ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 16),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text("Play again"),
-              ),
+              padding: const EdgeInsets.symmetric(vertical: 64,),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  OutlinedButton(
+                    onPressed: () {
+                      // Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => const Homepage()),
+                          (route) => false
+                      );
+                    },
+                    child: const Text("Home"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("Play again"),
+                  ),
+                ],
+              )
             )
           ],
         ),
       ),
     );
   }
+
 }
