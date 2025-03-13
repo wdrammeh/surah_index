@@ -346,7 +346,7 @@ class CompletedActivity extends StatelessWidget {
           children: [
             Text(
               "Quiz completed",
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
             SizedBox(
               height: 8,

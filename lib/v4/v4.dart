@@ -59,7 +59,7 @@ class Homepage extends StatelessWidget {
             });
           },
           child: const Icon(
-            Icons.question_mark,
+            Icons.info_outline,
             color: Colors.white,
           ),
         ),
